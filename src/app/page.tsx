@@ -2,19 +2,20 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Star, ShoppingBag, ShieldCheck, Heart } from "lucide-react";
+import { ArrowRight, Star, ShoppingBag, ShieldCheck, Heart, Play } from "lucide-react";
 import { products } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import { motion } from "framer-motion";
 
 export default function Home() {
-  // Grab the first 3 bestsellers or items to feature
+  // Grab the first 3 bestsellers to feature
   const featuredProducts = products.filter((p) => p.isBestSeller).slice(0, 3);
 
-  // Animations configuration
+  // Animation variants
   const fadeInUp = {
     initial: { opacity: 0, y: 30 },
-    animate: { opacity: 1, y: 0 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-100px" },
     transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
   };
 
@@ -30,7 +31,6 @@ export default function Home() {
     <div className="w-full bg-background overflow-hidden">
       {/* 1. HERO SECTION */}
       <section className="relative h-screen w-full flex items-center justify-center bg-[#E5DFD9]">
-        {/* Background Image Overlay */}
         <div className="absolute inset-0 z-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -38,11 +38,9 @@ export default function Home() {
             alt="ZARIYAH Ivory Collection Model"
             className="w-full h-full object-cover object-[center_20%] opacity-90 brightness-[0.93]"
           />
-          {/* Subtle gradient vignette */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />
         </div>
 
-        {/* Hero Content */}
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center text-white flex flex-col items-center">
           <motion.span
             initial={{ opacity: 0, y: 15 }}
@@ -204,7 +202,65 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. EDITOR'S PICKS / BESTSELLERS */}
+      {/* 4. SHOP BY OCCASION GRID */}
+      <section className="py-24 px-6 lg:px-12 bg-background border-t border-b border-neutral-200/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 space-y-3">
+            <span className="text-[10px] tracking-[0.3em] uppercase text-luxury-gold-dark font-medium">
+              Seasonal Styling
+            </span>
+            <h3 className="font-serif text-2xl lg:text-3xl tracking-wide uppercase font-light text-[#111111]">
+              Shop by Occasion
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-[#111111]">
+            <Link href="/shop?category=festive" className="group flex flex-col items-center">
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-100 rounded-sm mb-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/category_festive.png"
+                  alt="Wedding Festive"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-out"
+                />
+                <div className="absolute inset-0 bg-black/5 group-hover:bg-black/15 transition-colors duration-500" />
+              </div>
+              <h4 className="font-serif text-lg tracking-wider uppercase font-light">Festive Weddings</h4>
+              <p className="text-[9px] tracking-[0.2em] uppercase text-neutral-400 mt-1">Gota & Zari Embellishments</p>
+            </Link>
+
+            <Link href="/shop?category=pret" className="group flex flex-col items-center mt-0 md:mt-8">
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-100 rounded-sm mb-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/hero_model_ivory.png"
+                  alt="Daily Luxury Pret"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-out"
+                />
+                <div className="absolute inset-0 bg-black/5 group-hover:bg-black/15 transition-colors duration-500" />
+              </div>
+              <h4 className="font-serif text-lg tracking-wider uppercase font-light">Atelier Eid Pret</h4>
+              <p className="text-[9px] tracking-[0.2em] uppercase text-neutral-400 mt-1">Timeless Modest Silhouettes</p>
+            </Link>
+
+            <Link href="/shop?category=coords" className="group flex flex-col items-center">
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-100 rounded-sm mb-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/category_coords.png"
+                  alt="Casual Soirees"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-out"
+                />
+                <div className="absolute inset-0 bg-black/5 group-hover:bg-black/15 transition-colors duration-500" />
+              </div>
+              <h4 className="font-serif text-lg tracking-wider uppercase font-light">Minimalist Soirées</h4>
+              <p className="text-[9px] tracking-[0.2em] uppercase text-neutral-400 mt-1">Monochromatic Co-Ord Sets</p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. EDITOR'S PICKS / BESTSELLERS */}
       <section className="py-24 px-6 lg:px-12 bg-[#FAF9F6]">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
@@ -240,7 +296,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. CRAFTSMANSHIP FOCUS */}
+      {/* 6. CRAFTSMANSHIP FOCUS */}
       <section className="py-24 px-6 lg:px-12 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
           <div className="lg:col-span-6 order-2 lg:order-1 relative aspect-[4/5] w-full overflow-hidden bg-neutral-50 rounded-sm">
@@ -278,7 +334,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. BRAND PROMISES / VALUE GRID */}
+      {/* 7. VIDEO CAMPAIGN FILM SECTION */}
+      <section className="relative py-32 w-full flex items-center justify-center bg-neutral-900 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/category_festive.png"
+            alt="Miras Film Backdrop"
+            className="w-full h-full object-cover scale-105 blur-[3px] brightness-[0.35]"
+          />
+        </div>
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white space-y-6 flex flex-col items-center">
+          <span className="text-[10px] tracking-[0.4em] uppercase font-light text-luxury-gold">
+            Campaign Film 2026
+          </span>
+          <h3 className="font-serif text-3xl sm:text-5xl font-light uppercase tracking-wide leading-tight">
+            Miras: The Inherited Grace
+          </h3>
+          <p className="text-[11px] tracking-[0.2em] font-light max-w-lg uppercase text-neutral-300 leading-relaxed">
+            Watch the cinematic campaign captured in the historic courtyards of Lahore, detailing the connection between lineage and handcraft.
+          </p>
+          <div className="pt-4">
+            <button
+              onClick={() => alert("Loading video campaign film: MIRAS 2026...")}
+              className="border border-white text-white hover:bg-white hover:text-[#111111] text-[9px] tracking-[0.25em] font-medium uppercase px-8 py-3.5 transition-all duration-300 flex items-center gap-2 rounded-sm"
+            >
+              <Play size={10} fill="currentColor" />
+              Play Campaign Film
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. BRAND PROMISES / VALUE GRID */}
       <section className="bg-luxury-sand/30 border-t border-b border-neutral-200/50 py-16 px-6 lg:px-12">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
           <div className="flex flex-col items-center space-y-3">
@@ -313,7 +401,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. CUSTOMER REVIEWS */}
+      {/* 9. CUSTOMER REVIEWS */}
       <section className="py-24 px-6 lg:px-12 bg-background">
         <div className="max-w-5xl mx-auto text-center space-y-12">
           <div className="space-y-3">
@@ -345,6 +433,53 @@ export default function Home() {
                 <span className="text-[9px] tracking-wider text-neutral-400 block mt-0.5">London, UK</span>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 10. INSTAGRAM MUSE GALLERY GRID */}
+      <section className="py-24 border-t border-neutral-200/50 bg-[#FAF9F6]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16 space-y-3">
+            <span className="text-[10px] tracking-[0.3em] uppercase text-luxury-gold-dark font-medium">
+              Zariyah Muses
+            </span>
+            <h3 className="font-serif text-2xl lg:text-3xl tracking-wide uppercase font-light text-[#111111]">
+              Shared Grace on Instagram
+            </h3>
+            <p className="text-[9px] tracking-[0.2em] uppercase text-neutral-400 font-light">
+              Follow our coordinates at @ZariyahLuxury
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {[
+              "/images/hero_model_ivory.png",
+              "/images/category_festive.png",
+              "/images/category_coords.png",
+              "/images/craft_artisans.png",
+              "/images/hero_model_ivory.png"
+            ].map((imgSrc, idx) => (
+              <a
+                key={idx}
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative aspect-square overflow-hidden bg-neutral-100 rounded-sm shadow-sm"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={imgSrc}
+                  alt={`Instagram Post ${idx + 1}`}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                  <span className="text-[9px] tracking-[0.2em] uppercase font-semibold text-white border-b border-white pb-0.5">
+                    Shop The Look
+                  </span>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       </section>

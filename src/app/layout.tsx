@@ -5,6 +5,7 @@ import { StoreProvider } from "@/context/StoreContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
+import CustomCursor from "@/components/CustomCursor";
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-serif",
@@ -45,6 +46,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
         <StoreProvider>
+          <CustomCursor />
           <Navbar />
           <CartDrawer />
           <main className="flex-grow">{children}</main>
